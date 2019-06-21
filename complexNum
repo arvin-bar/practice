@@ -103,19 +103,28 @@ class complexNum
 
 int main()
 {
-    double x,n;
-    cout << "e^ix = cosx + isinx" << endl;
-    cout << "Enter x to compute: ";
-    cin >> x;
-    cout << "Enter n for accuracy: ";
-    cin >> n;
-    complexNum num(1,x/n);
-    complexNum temp = num;
-    for(int i = 0; i < n; i++)
+    cout << "Select option: euler, binomial: ";
+    string option;
+    cin >> option;
+    
+    while(option != q)
     {
-        temp = num*temp;
+        double x,n;
+        cout << "e^ix = cosx + isinx" << endl;
+        cout << "Enter x to compute: ";
+        cin >> x;
+        cout << "Enter n for accuracy: ";
+        cin >> n;
+        complexNum num(1,x/n);
+        complexNum temp = num;
+        for(int i = 0; i < n; i++)
+        {
+            temp = num*temp;
+        }
+        cout << "Result: " << temp << endl;
+        cout << "Enter q to quit or c to continue: " << endl;
+        cin >> option;
     }
-    cout << "Result: " << temp << endl;
 
     return 0;
 }
