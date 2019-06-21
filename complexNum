@@ -1,0 +1,121 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <ostream>
+
+using namespace std;
+
+class complexNum
+{
+    public:
+    complexNum()
+    {
+        this->real = 0;
+        this->imag = 0;
+    }
+    complexNum(double real,double imag)
+    {
+        this->real = real;
+        this->imag = imag;
+    }
+    complexNum(const complexNum& c)
+    {
+        this->real = c.real;
+        this->imag = c.imag;
+    }
+    complexNum operator=(const complexNum& c)
+    {
+        this->real = c.real;
+        this->imag = c.imag;
+    }
+    ~complexNum()
+    {
+    }
+    complexNum add(complexNum c1, complexNum c2)
+    {
+        complexNum c;
+        c.real = c1.real+c2.real;
+        c.imag = c1.imag+c2.imag;
+        return c;
+    }
+    complexNum sub(complexNum c1, complexNum c2)
+    {
+        complexNum c;
+        c.real = c1.real-c2.real;
+        c.imag = c1.imag-c2.imag;
+        return c;
+    }
+    complexNum multiply(complexNum c1, complexNum c2)
+    {
+        complexNum c;
+        c.real = c1.real*c2.real - c1.imag*c2.imag;
+        c.imag = c1.imag*c2.real + c1.real*c2.imag;
+        return c;
+    }
+    complexNum operator*(complexNum rhs)
+    {
+        return multiply(*this,rhs);
+    }
+    complexNum operator+(complexNum rhs)
+    {
+        return add(*this,rhs);
+    }
+    
+    complexNum operator-(complexNum rhs)
+    {
+        return sub(*this,rhs);
+    }
+    friend ostream& operator<<(ostream& os,complexNum c)
+    {
+        if(c.real == 0)
+        {
+            os << c.imag << "i" << endl;
+        }
+        else if(c.imag == 0)
+        {
+            os << c.real << endl;
+        }
+        else 
+        {
+            os << c.real;
+            if(c.imag < 0)
+            {
+                os << c.imag << "i" << endl;
+            }
+            else
+            {
+                os << "+" << c.imag << "i" << endl;
+            }
+        }
+        return os;
+    }
+    
+  private:
+  double real;
+  double imag;
+};
+
+int main()
+{
+    double x,n;
+    cout << "e^ix = cosx + isinx" << endl;
+    cout << "Enter x to compute: ";
+    cin >> x;
+    cout << "Enter n for accuracy: ";
+    cin >> n;
+    complexNum num(1,x/n);
+    complexNum temp = num;
+    for(int i = 0; i < n; i++)
+    {
+        temp = num*temp;
+    }
+    cout << "Result: " << temp << endl;
+
+    return 0;
+}
